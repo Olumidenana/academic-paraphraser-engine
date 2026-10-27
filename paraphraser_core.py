@@ -56,7 +56,18 @@ class AcademicParaphraser:
     }
 
     def __init__(self, api_key: Optional[str] = None):
-        self.api_key = api_key or os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        # Read from environment or local .env file
+        key = api_key or os.getenv("GEMINI_API_KEY")
+        if not key:
+            env_path = os.path.join(os.path.dirname(__file__), ".env")
+            if os.path.exists(env_path):
+                with open(env_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        if line.startswith("GEMINI_API_KEY="):
+                            key = line.strip().split("=", 1)[1].strip()
+                            break
+
+        self.api_key = key
         self.citation_vault = CitationVault()
         self.analyzer = BurstinessAnalyzer()
         self.chunker = StreamingChunker()
@@ -69,15 +80,13 @@ class AcademicParaphraser:
         client: Optional[httpx.AsyncClient] = None
     ) -> str:
         """
-        Asynchronously sends masked chunk to Gemini API with strict anti-AI constraints,
-        falling back to local transformation if no key or error occurs.
+        Asynchronously sends masked chunk to Gemini API with strict anti-AI constraints.
         """
         key = user_api_key or self.api_key
         if not key or not key.strip():
             return self._local_heuristic_paraphrase(chunk_text, tone)
 
         system_prompt = self.PROMPT_TEMPLATES.get(tone, self.PROMPT_TEMPLATES["phd"])
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key.strip()}"
         payload = {
             "systemInstruction": {"parts": [{"text": system_prompt}]},
             "contents": [{"parts": [{"text": chunk_text}]}],
@@ -92,22 +101,27 @@ class AcademicParaphraser:
             client = httpx.AsyncClient(timeout=45.0)
             should_close = True
 
+        # Try gemini-flash-lite-latest first, then fallback to gemini-flash-latest
+        models_to_try = ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-pro-latest"]
         try:
-            res = await client.post(url, json=payload)
-            if res.status_code == 200:
-                data = res.json()
-                candidates = data.get("candidates", [])
-                if candidates:
-                    text_part = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-                    if text_part.strip():
-                        return text_part.strip()
-        except Exception:
-            pass
+            for model_name in models_to_try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={key.strip()}"
+                try:
+                    res = await client.post(url, json=payload, timeout=30.0)
+                    if res.status_code == 200:
+                        data = res.json()
+                        candidates = data.get("candidates", [])
+                        if candidates:
+                            text_part = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                            if text_part.strip():
+                                return text_part.strip()
+                except Exception:
+                    continue
         finally:
             if should_close:
                 await client.aclose()
 
-        # Fallback to local heuristic if API fails or quota exceeded
+        # Fallback to local heuristic only if all models fail
         return self._local_heuristic_paraphrase(chunk_text, tone)
 
     def _local_heuristic_paraphrase(self, text: str, tone: str) -> str:
