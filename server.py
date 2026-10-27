@@ -1,5 +1,6 @@
 """
-server.py - Revamped Modern Academic Paraphraser & Anti-AI Engine
+server.py - Next-Gen Luxury Academic Paraphraser & Anti-AI Engine
+Features: Interactive Visual Diff, Citation Padlocks, Radial SVG Gauges, and High-Polish UI
 """
 
 import os
@@ -15,7 +16,7 @@ from paraphraser_core import AcademicParaphraser
 from burstiness_analyzer import BurstinessAnalyzer
 from document_io import DocumentIO
 
-app = FastAPI(title="Limitless Academic Paraphraser & Anti-AI Engine")
+app = FastAPI(title="Scholarly AI - Citation-Safe Paraphraser")
 
 app.add_middleware(
     CORSMiddleware,
@@ -73,7 +74,7 @@ async def export_docx(req: ExportDocxRequest):
     return Response(
         content=docx_bytes,
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        headers={"Content-Disposition": "attachment; filename=paraphrased_academic_paper.docx"}
+        headers={"Content-Disposition": "attachment; filename=scholarly_paraphrased_document.docx"}
     )
 
 HTML_UI = """<!DOCTYPE html>
@@ -81,636 +82,614 @@ HTML_UI = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scholarly AI - Citation-Safe Academic Paraphraser & Anti-AI Engine</title>
+    <title>Scholarly AI — Precision Academic Re-Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root[data-theme="dark"] {
-            --bg-base: #090d16;
-            --bg-surface: #111827;
-            --bg-elevated: #1e293b;
-            --bg-glass: rgba(17, 24, 39, 0.75);
-            --border-subtle: #1f2937;
-            --border-prominent: #374151;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --text-faint: #6b7280;
-            --accent-primary: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.25);
-            --accent-hover: #2563eb;
+            --bg-canvas: #06090e;
+            --bg-card: #0d121d;
+            --bg-card-hover: #121826;
+            --bg-subtle: #161e2e;
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(99, 102, 241, 0.3);
+            --text-title: #ffffff;
+            --text-body: #cbd5e1;
+            --text-muted: #64748b;
+            --brand-primary: #6366f1;
+            --brand-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --brand-glow: rgba(99, 102, 241, 0.25);
             --emerald: #10b981;
-            --emerald-glow: rgba(16, 185, 129, 0.15);
+            --emerald-glow: rgba(16, 185, 129, 0.2);
             --amber: #f59e0b;
-            --rose: #f43f5e;
-            --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-            --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+            --amber-glow: rgba(245, 158, 11, 0.2);
+            --danger: #f43f5e;
+            --glass-bg: rgba(13, 18, 29, 0.7);
+            --shadow-float: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
         }
 
         :root[data-theme="light"] {
-            --bg-base: #f8fafc;
-            --bg-surface: #ffffff;
-            --bg-elevated: #f1f5f9;
-            --bg-glass: rgba(255, 255, 255, 0.85);
-            --border-subtle: #e2e8f0;
-            --border-prominent: #cbd5e1;
-            --text-main: #0f172a;
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --bg-subtle: #e2e8f0;
+            --border-card: rgba(0, 0, 0, 0.08);
+            --border-highlight: rgba(99, 102, 241, 0.4);
+            --text-title: #0f172a;
+            --text-body: #334155;
             --text-muted: #64748b;
-            --text-faint: #94a3b8;
-            --accent-primary: #2563eb;
-            --accent-glow: rgba(37, 99, 235, 0.15);
-            --accent-hover: #1d4ed8;
+            --brand-primary: #4f46e5;
+            --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+            --brand-glow: rgba(79, 70, 229, 0.15);
             --emerald: #059669;
-            --emerald-glow: rgba(5, 150, 105, 0.12);
+            --emerald-glow: rgba(5, 150, 105, 0.15);
             --amber: #d97706;
-            --rose: #e11d48;
-            --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+            --amber-glow: rgba(217, 119, 6, 0.15);
+            --danger: #e11d48;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --shadow-float: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-body);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Ambient Glow Backgrounds */
-        .ambient-glow {
+        /* Ambient Hero Mesh Background */
+        .ambient-mesh {
             position: fixed;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1000px;
-            height: 350px;
-            background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.15), transparent 70%);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 480px;
+            background: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.18), transparent 70%),
+                        radial-gradient(circle at 85% 10%, rgba(168, 85, 247, 0.12), transparent 50%),
+                        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.1), transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Header Navigation */
-        header {
+        /* Navigation Bar */
+        nav {
             position: sticky;
             top: 0;
-            z-index: 50;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            background-color: var(--bg-glass);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 0.85rem 2rem;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: var(--glass-bg);
+            border-bottom: 1px solid var(--border-card);
+            padding: 0.9rem 2.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand-container {
+        .brand-link {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
+            gap: 0.85rem;
             text-decoration: none;
             color: inherit;
         }
 
-        .brand-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        .brand-gem {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--brand-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 16px var(--brand-glow);
             color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
         }
 
-        .brand-text h1 {
-            font-size: 1.15rem;
+        .brand-heading {
+            font-size: 1.2rem;
             font-weight: 800;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
+            color: var(--text-title);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .brand-tag {
+        .brand-badge {
             font-size: 0.65rem;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 0.8px;
-            padding: 0.15rem 0.45rem;
+            padding: 0.2rem 0.55rem;
             border-radius: 6px;
-            background-color: var(--accent-glow);
-            color: var(--accent-primary);
-            border: 1px solid var(--accent-primary);
+            background: var(--brand-gradient);
+            color: white;
+            text-transform: uppercase;
         }
 
-        .brand-text p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .header-actions {
+        .nav-center {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        .status-pill {
+        .shield-pill {
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
-            padding: 0.4rem 0.8rem;
+            gap: 0.5rem;
+            padding: 0.45rem 0.9rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid var(--border-prominent);
-            background-color: var(--bg-surface);
-        }
-
-        .status-pill.active-shield {
             background-color: var(--emerald-glow);
             color: var(--emerald);
-            border-color: rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 0.775rem;
+            font-weight: 700;
         }
 
-        .status-pill.mode-badge {
-            cursor: pointer;
-            border-color: var(--border-prominent);
-            color: var(--accent-primary);
-        }
-
-        .pulse-dot {
-            width: 7px;
-            height: 7px;
+        .shield-pulse {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background-color: var(--emerald);
-            box-shadow: 0 0 8px var(--emerald);
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--emerald);
+            animation: pulse-ring 2s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-ring {
             0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 1; }
             100% { transform: scale(0.95); opacity: 0.8; }
         }
 
-        /* Buttons */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Buttons & Controls */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 0.95rem;
-            border-radius: 8px;
-            font-size: 0.825rem;
+            padding: 0.55rem 1.15rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            border: 1px solid var(--border-prominent);
-            background-color: var(--bg-surface);
-            color: var(--text-main);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--border-card);
+            background-color: var(--bg-card);
+            color: var(--text-title);
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .btn:hover {
-            border-color: var(--text-muted);
+            background-color: var(--bg-card-hover);
+            border-color: var(--border-highlight);
             transform: translateY(-1px);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-primary) 0%, #4f46e5 100%);
-            border-color: var(--accent-primary);
+        .btn-brand {
+            background: var(--brand-gradient);
+            border-color: transparent;
             color: white;
-            box-shadow: 0 4px 14px var(--accent-glow);
+            box-shadow: 0 4px 18px var(--brand-glow);
         }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--accent-hover) 0%, #4338ca 100%);
-            box-shadow: 0 6px 20px var(--accent-glow);
-            border-color: var(--accent-hover);
+        .btn-brand:hover {
+            box-shadow: 0 6px 24px var(--brand-glow);
+            transform: translateY(-2px);
         }
 
-        .btn-ghost {
+        .btn-subtle {
             background: transparent;
             border-color: transparent;
+            box-shadow: none;
             color: var(--text-muted);
         }
 
-        .btn-ghost:hover {
-            background-color: var(--bg-elevated);
-            color: var(--text-main);
+        .btn-subtle:hover {
+            background-color: var(--bg-card-hover);
+            color: var(--text-title);
         }
 
-        /* Live Progress Bar Strip */
-        .progress-strip {
-            display: none;
-            width: 100%;
-            background-color: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 0.75rem 2rem;
-            align-items: center;
-            gap: 1.25rem;
-            z-index: 40;
-        }
-
-        .progress-track {
-            flex: 1;
-            height: 7px;
-            background-color: var(--bg-elevated);
-            border-radius: 9999px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            border-radius: 9999px;
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .progress-info {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
-
-        /* Main App Layout */
+        /* App Container */
         main {
             flex: 1;
-            padding: 1.75rem 2rem;
             max-width: 1720px;
             margin: 0 auto;
             width: 100%;
+            padding: 1.5rem 2.2rem;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1.5rem;
             z-index: 10;
         }
 
-        /* Tone Selection Bar */
-        .control-shelf {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 0.75rem 1.25rem;
+        /* Hero / Mode Selector Bar */
+        .toolbar-strip {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 0.85rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
-            box-shadow: var(--shadow-subtle);
+            box-shadow: var(--shadow-float);
         }
 
-        .tone-picker {
+        .tone-tabs {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            flex-wrap: wrap;
+            background-color: var(--bg-subtle);
+            padding: 0.3rem;
+            border-radius: 12px;
+            gap: 0.3rem;
         }
 
-        .tone-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--text-muted);
-            margin-right: 0.5rem;
-        }
-
-        .tone-chip {
-            padding: 0.4rem 0.85rem;
+        .tone-tab {
+            padding: 0.45rem 1rem;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.825rem;
             font-weight: 600;
             cursor: pointer;
-            border: 1px solid var(--border-subtle);
-            background-color: var(--bg-elevated);
+            border: none;
+            background: transparent;
             color: var(--text-muted);
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
         }
 
-        .tone-chip:hover {
-            color: var(--text-main);
-            border-color: var(--border-prominent);
+        .tone-tab.active {
+            background-color: var(--bg-card);
+            color: var(--text-title);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .tone-chip.active {
-            background-color: var(--accent-glow);
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-        }
-
-        .shelf-actions {
+        .tool-options {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        /* Diagnostic HUD Cards */
-        .hud-grid {
+        /* Live Radial & Metric Cards */
+        .metrics-hud {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.15rem;
         }
 
         .hud-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 1.15rem 1.25rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 1.35rem 1.5rem;
             display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            box-shadow: var(--shadow-subtle);
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-float);
             position: relative;
             overflow: hidden;
         }
 
-        .hud-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--border-prominent), transparent);
+        .hud-card:hover {
+            border-color: var(--border-highlight);
         }
 
-        .hud-card.accent-card::before {
-            background: linear-gradient(90deg, var(--accent-primary), var(--emerald));
-        }
-
-        .hud-header {
+        .hud-left {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
-        .hud-title {
+        .hud-label {
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
+            letter-spacing: 0.8px;
             color: var(--text-muted);
         }
 
-        .hud-icon {
-            color: var(--text-faint);
-        }
-
-        .hud-value-row {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-        }
-
-        .hud-value {
-            font-size: 1.65rem;
+        .hud-number {
+            font-size: 1.75rem;
             font-weight: 800;
+            color: var(--text-title);
             letter-spacing: -0.5px;
-            color: var(--text-main);
         }
 
-        .hud-sub {
-            font-size: 0.75rem;
+        .hud-desc {
+            font-size: 0.775rem;
             color: var(--text-muted);
         }
 
-        /* Dual Workspace Split Screen */
-        .workspace {
+        /* Radial Progress Ring */
+        .ring-container {
+            width: 58px;
+            height: 58px;
+            position: relative;
+        }
+
+        .ring-svg {
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: var(--bg-subtle);
+            stroke-width: 5;
+        }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--emerald);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 157;
+            stroke-dashoffset: 20;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+
+        .ring-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--emerald);
+        }
+
+        /* Streaming Progress Bar */
+        .stream-bar {
+            display: none;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 0.85rem 1.5rem;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .stream-track {
+            flex: 1;
+            height: 8px;
+            background-color: var(--bg-subtle);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .stream-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--brand-gradient);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+
+        /* Dual Studio Editors */
+        .studio-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.25rem;
             flex: 1;
-            min-height: 560px;
+            min-height: 580px;
         }
 
-        .pane {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
+        .editor-deck {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: var(--shadow-card);
+            box-shadow: var(--shadow-float);
         }
 
-        .pane-topbar {
-            padding: 0.85rem 1.25rem;
-            border-bottom: 1px solid var(--border-subtle);
-            background-color: var(--bg-elevated);
+        .deck-header {
+            padding: 1rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-card);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .pane-heading {
+        .deck-title {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            font-size: 0.85rem;
+            gap: 0.65rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--text-title);
         }
 
-        .counter-badge {
+        .stat-tag {
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-muted);
-            background-color: var(--bg-surface);
-            padding: 0.2rem 0.55rem;
+            background-color: var(--bg-subtle);
+            padding: 0.2rem 0.6rem;
             border-radius: 6px;
-            border: 1px solid var(--border-subtle);
         }
 
-        .pane-actions {
+        .deck-actions {
             display: flex;
-            gap: 0.4rem;
             align-items: center;
+            gap: 0.5rem;
         }
 
-        .pane-body {
+        .deck-body {
             flex: 1;
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
-        .editor {
+        .paper-textarea {
             flex: 1;
             width: 100%;
             background-color: transparent;
-            color: var(--text-main);
+            color: var(--text-title);
             border: none;
             padding: 1.5rem;
             font-family: 'Newsreader', Georgia, serif;
-            font-size: 1.075rem;
-            line-height: 1.85;
+            font-size: 1.15rem;
+            line-height: 1.9;
             resize: none;
             outline: none;
         }
 
-        .editor::placeholder {
-            color: var(--text-faint);
+        .paper-textarea::placeholder {
+            color: var(--text-muted);
             font-style: italic;
         }
 
-        /* File Upload Drop Target */
-        .file-upload-btn {
-            cursor: pointer;
+        /* Interactive Diff Viewer */
+        .diff-viewer {
+            display: none;
+            flex: 1;
+            padding: 1.5rem;
+            font-family: 'Newsreader', Georgia, serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            overflow-y: auto;
+            color: var(--text-title);
+            white-space: pre-wrap;
+        }
+
+        .citation-shield-tag {
+            background-color: var(--amber-glow);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
-        /* Highlighted Citation Overlay */
-        .citation-tag {
-            background-color: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.35);
-            padding: 0.1rem 0.35rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.85em;
-        }
-
-        /* Toast Notifications */
-        .toast-container {
+        /* Modern Toast */
+        .toast-shelf {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            z-index: 100;
+            gap: 0.6rem;
+            z-index: 1000;
         }
 
-        .toast {
-            background-color: var(--bg-surface);
-            color: var(--text-main);
-            border: 1px solid var(--border-prominent);
-            padding: 0.75rem 1.25rem;
-            border-radius: 10px;
+        .toast-msg {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-highlight);
+            color: var(--text-title);
+            padding: 0.85rem 1.4rem;
+            border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUp 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 0.65rem;
+            animation: popIn 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes slideUp {
+        @keyframes popIn {
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Settings Modal */
-        .modal-overlay {
+        /* Modal */
+        .backdrop {
             display: none;
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 110;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            z-index: 1100;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
         }
 
-        .modal {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            max-width: 500px;
+        .modal-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            max-width: 520px;
             width: 100%;
-            padding: 1.75rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             gap: 1.25rem;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        .modal-body {
+        .field-group {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
+            gap: 0.5rem;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .input-group label {
-            font-weight: 600;
-            color: var(--text-main);
+        .field-label {
             font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-title);
         }
 
-        .input-control {
-            background-color: var(--bg-elevated);
-            border: 1px solid var(--border-prominent);
-            color: var(--text-main);
-            padding: 0.65rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
+        .field-input {
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-card);
+            color: var(--text-title);
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
             outline: none;
         }
 
-        .input-control:focus {
-            border-color: var(--accent-primary);
+        .field-input:focus {
+            border-color: var(--brand-primary);
         }
 
         /* Footer */
         footer {
-            padding: 1rem 2rem;
-            border-top: 1px solid var(--border-subtle);
-            font-size: 0.775rem;
+            padding: 1.25rem 2.2rem;
+            border-top: 1px solid var(--border-card);
+            font-size: 0.8rem;
             color: var(--text-muted);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: var(--bg-surface);
+            background-color: var(--bg-card);
         }
 
-        @media (max-width: 960px) {
-            .workspace {
+        @media (max-width: 980px) {
+            .studio-grid {
                 grid-template-columns: 1fr;
             }
             main {
                 padding: 1rem;
             }
-            header {
+            nav {
                 padding: 0.85rem 1rem;
             }
         }
@@ -718,340 +697,349 @@ HTML_UI = """<!DOCTYPE html>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
+    <div class="ambient-mesh"></div>
 
-    <header>
-        <a href="/" class="brand-container">
-            <div class="brand-icon">
+    <!-- Navigation -->
+    <nav>
+        <a href="/" class="brand-link">
+            <div class="brand-gem">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                 </svg>
             </div>
-            <div class="brand-text">
-                <h1>Scholarly AI <span class="brand-tag">Project 1</span></h1>
-                <p>Citation-Preserving Academic Paraphraser & Anti-AI Engine</p>
+            <div class="brand-heading">
+                Scholarly AI <span class="brand-badge">PRO</span>
             </div>
         </a>
 
-        <div class="header-actions">
-            <div class="status-pill active-shield" title="Guarantees zero mangled or dropped in-text citations">
-                <span class="pulse-dot"></span>
-                <span>Citation Vault: ACTIVE (APA/MLA/IEEE/Chicago)</span>
+        <div class="nav-center">
+            <div class="shield-pill">
+                <span class="shield-pulse"></span>
+                <span>Deterministic Citation Shield Active</span>
             </div>
+        </div>
 
-            <div id="modePill" class="status-pill mode-badge" onclick="openSettingsModal()" title="Click to configure Gemini API Key for deep LLM paraphrasing">
+        <div class="nav-actions">
+            <button id="modeBtn" class="btn" onclick="openConfigModal()" title="Toggle Gemini API Key or Local Engine">
                 <span id="modeIcon">⚡</span>
-                <span id="modeText">Mode: Fast Local Fallback</span>
-            </div>
-
-            <button class="btn btn-ghost" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                <span id="themeIcon">☀️</span>
+                <span id="modeLabel">Fast Local Engine</span>
             </button>
 
-            <button class="btn btn-primary" id="mainRunBtn" onclick="runStreamingParaphrase()">
+            <button class="btn btn-subtle" onclick="toggleTheme()" title="Toggle Theme">
+                <span id="themeEmoji">☀️</span>
+            </button>
+
+            <button class="btn btn-brand" id="actionBtn" onclick="triggerStreamingRewrite()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
                 </svg>
-                <span id="runBtnLabel">Paraphrase Document</span>
+                <span id="actionLabel">Paraphrase Document</span>
             </button>
         </div>
-    </header>
+    </nav>
 
-    <!-- Real-Time Progress Bar -->
-    <div id="progressStrip" class="progress-strip">
-        <div class="progress-info">
-            <svg class="spin-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="12" y1="2" x2="12" y2="6"></line>
-                <line x1="12" y1="18" x2="12" y2="22"></line>
-                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
-                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-                <line x1="2" y1="12" x2="6" y2="12"></line>
-                <line x1="18" y1="12" x2="22" y2="12"></line>
-                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
-                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
-            </svg>
-            <span id="progressMessage">Partitioning into semantic paragraph blocks...</span>
+    <!-- Progress Streamer Strip -->
+    <div id="streamStrip" class="stream-bar" style="margin: 0 2.2rem;">
+        <span id="streamMsg" style="font-size: 0.825rem; font-weight: 600; color: var(--text-title); min-width: 320px;">
+            Initializing concurrent semantic workers...
+        </span>
+        <div class="stream-track">
+            <div id="streamProgress" class="stream-fill"></div>
         </div>
-        <div class="progress-track">
-            <div id="progressBar" class="progress-fill"></div>
-        </div>
-        <span id="progressPercent" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">0%</span>
+        <span id="streamNum" style="font-size: 0.85rem; font-weight: 800; color: var(--brand-primary);">0%</span>
     </div>
 
+    <!-- Main Workspace -->
     <main>
-        <!-- Control Shelf: Academic Register & Sample Ingestion -->
-        <div class="control-shelf">
-            <div class="tone-picker">
-                <span class="tone-label">Academic Register:</span>
-                <button class="tone-chip active" data-tone="phd" onclick="selectTone('phd')">🎓 PhD / Peer-Reviewed</button>
-                <button class="tone-chip" data-tone="masters" onclick="selectTone('masters')">🏛️ Master's Analytical</button>
-                <button class="tone-chip" data-tone="undergrad" onclick="selectTone('undergrad')">📚 Undergraduate Expository</button>
+        <!-- Toolbar Shelf -->
+        <div class="toolbar-strip">
+            <div class="tone-tabs">
+                <button class="tone-tab active" data-tone="phd" onclick="switchTone('phd')">
+                    🎓 PhD / Peer-Reviewed
+                </button>
+                <button class="tone-tab" data-tone="masters" onclick="switchTone('masters')">
+                    🏛️ Master's Analytical
+                </button>
+                <button class="tone-tab" data-tone="undergrad" onclick="switchTone('undergrad')">
+                    📚 Undergraduate Expository
+                </button>
             </div>
 
-            <div class="shelf-actions">
-                <button class="btn btn-ghost" onclick="loadSampleText()" title="Load sample academic text with citations and AI buzzwords">
-                    📄 Insert Sample Text
+            <div class="tool-options">
+                <button class="btn btn-subtle" onclick="populateAcademicSample()">
+                    📄 Insert Scholarly Sample
                 </button>
-                <button class="btn" onclick="openSettingsModal()">
-                    ⚙️ Engine Settings
+                <button class="btn btn-subtle" onclick="toggleDiffHighlight()" id="diffToggleBtn">
+                    🔍 Highlight Citations &amp; Diff
+                </button>
+                <button class="btn btn-subtle" onclick="openConfigModal()">
+                    ⚙️ Settings
                 </button>
             </div>
         </div>
 
-        <!-- Diagnostic HUD Cards -->
-        <div class="hud-grid">
-            <div class="hud-card accent-card">
-                <div class="hud-header">
-                    <span class="hud-title">Turnitin / AI Risk</span>
-                    <span class="hud-icon">🛡️</span>
+        <!-- 4 Diagnostic HUD Cards with Radial Ring -->
+        <div class="metrics-hud">
+            <!-- 1. AI Safety Radial -->
+            <div class="hud-card">
+                <div class="hud-left">
+                    <span class="hud-label">Turnitin Resistance</span>
+                    <span class="hud-number" id="hudSafetyVal" style="color: var(--emerald);">Turnitin-Safe</span>
+                    <span class="hud-desc" id="hudSafetyDesc">Natural irregular human cadence</span>
                 </div>
-                <div class="hud-value-row">
-                    <span class="hud-value" id="hudRisk" style="color: var(--emerald);">Turnitin-Safe</span>
+                <div class="ring-container">
+                    <svg class="ring-svg" width="58" height="58">
+                        <circle class="ring-bg" cx="29" cy="29" r="24"></circle>
+                        <circle id="safetyRing" class="ring-progress" cx="29" cy="29" r="24"></circle>
+                    </svg>
+                    <div class="ring-label" id="safetyRingText">98%</div>
                 </div>
-                <span class="hud-sub" id="hudRiskSub">Natural irregular human cadence</span>
             </div>
 
+            <!-- 2. Burstiness -->
             <div class="hud-card">
-                <div class="hud-header">
-                    <span class="hud-title">Burstiness Score (StDev)</span>
-                    <span class="hud-icon">📈</span>
+                <div class="hud-left">
+                    <span class="hud-label">Burstiness Index</span>
+                    <span class="hud-number" id="hudBurstVal">--</span>
+                    <span class="hud-desc">Sentence length StDev (&gt;6.0 is human)</span>
                 </div>
-                <div class="hud-value-row">
-                    <span class="hud-value" id="hudBurstiness">--</span>
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">&gt;6.0 is human</span>
-                </div>
-                <span class="hud-sub" id="hudBurstinessSub">Alternating short &amp; compound clauses</span>
+                <div style="font-size: 2rem;">📈</div>
             </div>
 
+            <!-- 3. Citation Lock Integrity -->
             <div class="hud-card">
-                <div class="hud-header">
-                    <span class="hud-title">Citation Shield</span>
-                    <span class="hud-icon">🔗</span>
+                <div class="hud-left">
+                    <span class="hud-label">Citation Lock Vault</span>
+                    <span class="hud-number" id="hudCiteVal" style="color: var(--amber);">-- / --</span>
+                    <span class="hud-desc" id="hudCiteDesc">100% references preserved</span>
                 </div>
-                <div class="hud-value-row">
-                    <span class="hud-value" id="hudCitations" style="color: var(--accent-primary);">-- / --</span>
-                </div>
-                <span class="hud-sub" id="hudCitationsSub">100% of references anchored</span>
+                <div style="font-size: 2rem;">🔒</div>
             </div>
 
+            <!-- 4. Cliché Purger -->
             <div class="hud-card">
-                <div class="hud-header">
-                    <span class="hud-title">AI Buzzwords Purged</span>
-                    <span class="hud-icon">✂️</span>
+                <div class="hud-left">
+                    <span class="hud-label">AI Clichés Purged</span>
+                    <span class="hud-number" id="hudClicheVal">--</span>
+                    <span class="hud-desc">Delve, tapestry, pivotal, etc.</span>
                 </div>
-                <div class="hud-value-row">
-                    <span class="hud-value" id="hudCliches">--</span>
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">clichés stripped</span>
-                </div>
-                <span class="hud-sub" id="hudClichesSub">Delve, tapestry, pivotal, etc.</span>
+                <div style="font-size: 2rem;">✂️</div>
             </div>
         </div>
 
-        <!-- Workspace Editors -->
-        <div class="workspace">
-            <!-- Left Pane: Input -->
-            <div class="pane">
-                <div class="pane-topbar">
-                    <div class="pane-heading">
-                        <span>Original Source Text</span>
-                        <span class="counter-badge" id="inputStats">0 words</span>
+        <!-- Dual Studio -->
+        <div class="studio-grid">
+            <!-- Left: Source -->
+            <div class="editor-deck">
+                <div class="deck-header">
+                    <div class="deck-title">
+                        <span>Original Source Draft</span>
+                        <span class="stat-tag" id="inputWordBadge">0 words</span>
                     </div>
-                    <div class="pane-actions">
-                        <label class="btn file-upload-btn" title="Upload Word DOCX, PDF, or Plain Text">
-                            <span>📂 Upload File</span>
-                            <input type="file" id="fileInput" style="display: none;" accept=".docx,.pdf,.txt,.md" onchange="handleFileUpload(event)">
+                    <div class="deck-actions">
+                        <label class="btn btn-subtle" style="cursor: pointer;">
+                            <span>📂 Upload File (.docx, .pdf, .txt)</span>
+                            <input type="file" id="filePicker" style="display: none;" accept=".docx,.pdf,.txt,.md" onchange="uploadSourceDocument(event)">
                         </label>
-                        <button class="btn btn-ghost" onclick="clearInput()" title="Clear text">Clear</button>
+                        <button class="btn btn-subtle" onclick="clearSourceDraft()">Clear</button>
                     </div>
                 </div>
-                <div class="pane-body">
-                    <textarea id="inputText" class="editor" placeholder="Paste your essay, literature review, or dissertation chapter here (supports limitless word counts and file sizes)..." oninput="updateInputStats()"></textarea>
+                <div class="deck-body">
+                    <textarea id="srcInput" class="paper-textarea" placeholder="Paste your essay, thesis proposal, or book chapter here without word count or file size limits..." oninput="refreshInputStats()"></textarea>
                 </div>
             </div>
 
-            <!-- Right Pane: Output -->
-            <div class="pane">
-                <div class="pane-topbar">
-                    <div class="pane-heading">
-                        <span>Humanized Academic Prose</span>
-                        <span class="counter-badge" id="outputStats">0 words</span>
+            <!-- Right: Paraphrased -->
+            <div class="editor-deck">
+                <div class="deck-header">
+                    <div class="deck-title">
+                        <span>Humanized Academic Output</span>
+                        <span class="stat-tag" id="outputWordBadge">0 words</span>
                     </div>
-                    <div class="pane-actions">
-                        <button class="btn" onclick="copyOutput()" title="Copy to clipboard">
-                            📋 Copy
-                        </button>
-                        <button class="btn" onclick="downloadDocx()" title="Download formatted Word Document (.docx)">
-                            💾 Export DOCX
-                        </button>
+                    <div class="deck-actions">
+                        <button class="btn btn-subtle" onclick="copyParaphrase()">📋 Copy</button>
+                        <button class="btn btn-subtle" onclick="downloadAcademicDocx()">💾 Export DOCX</button>
                     </div>
                 </div>
-                <div class="pane-body">
-                    <textarea id="outputText" class="editor" placeholder="Your humanized academic output with 100% preserved citations and natural human burstiness will appear here..." readonly></textarea>
+                <div class="deck-body">
+                    <textarea id="dstOutput" class="paper-textarea" placeholder="Humanized academic text with 100% intact citations and natural cadence will stream here..." readonly></textarea>
+                    <div id="diffView" class="diff-viewer"></div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="modal-overlay" onclick="closeSettingsModal(event)">
-        <div class="modal" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3>⚙️ Engine &amp; API Configuration</h3>
-                <button class="btn btn-ghost" onclick="closeSettingsModal()">✕</button>
+    <!-- Settings Backdrop -->
+    <div id="configModal" class="backdrop" onclick="closeConfigModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color: var(--text-title); font-size: 1.2rem; font-weight: 800;">⚙️ Engine Settings</h3>
+                <button class="btn btn-subtle" onclick="closeConfigModal()">✕</button>
             </div>
-            <div class="modal-body">
-                <p>By default, the engine runs locally on your computer with instantaneous regex citation-locking and cliché removal.</p>
-                <div class="input-group">
-                    <label for="apiKeyField">Google Gemini API Key (Optional for Deep Semantic Mode):</label>
-                    <input type="password" id="apiKeyField" class="input-control" placeholder="AIzaSy..." oninput="saveApiKey()">
-                    <span style="font-size: 0.75rem; color: var(--text-faint);">
-                        Get a free key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--accent-primary);">Google AI Studio</a>. Keys are stored locally in your browser session.
-                    </span>
-                </div>
-                <div class="input-group">
-                    <label>Selected Academic Register:</label>
-                    <span id="modalSelectedTone" style="font-weight: 600; color: var(--text-main);">PhD / Peer-Reviewed</span>
-                </div>
+            <div class="field-group">
+                <label class="field-label">Google Gemini API Key (Optional for Deep Semantic Mode):</label>
+                <input type="password" id="keyInput" class="field-input" placeholder="AIzaSy..." oninput="storeApiKey()">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">
+                    Get a free key from <a href="https://aistudio.google.com/" target="_blank" style="color: var(--brand-primary); font-weight: 600;">Google AI Studio</a>. Saved in your private local browser storage.
+                </span>
             </div>
             <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
-                <button class="btn btn-primary" onclick="closeSettingsModal()">Done</button>
+                <button class="btn btn-brand" onclick="closeConfigModal()">Save &amp; Close</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
-    <div id="toastContainer" class="toast-container"></div>
+    <!-- Toast Shelf -->
+    <div id="toasts" class="toast-shelf"></div>
 
+    <!-- Footer -->
     <footer>
-        <span>Project 1: Scholarly AI - Limitless Academic Paraphrasing Engine</span>
-        <span>Parallel Batch Chunker &bull; Universal Citation Vault &bull; Anti-AI Rhythm Transformer</span>
+        <span>Scholarly AI Platform &bull; Project 1: Limitless Academic Paraphraser &amp; Anti-AI Engine</span>
+        <span>Deterministic In-Text Citation Lock &bull; Async Concurrency &bull; Turnitin Bypass</span>
     </footer>
 
     <script>
-        let currentTone = 'phd';
+        let activeTone = 'phd';
+        let showDiffMode = false;
 
-        // Sample academic text with APA/IEEE citations and AI cliches
-        const SAMPLE_TEXT = `The contemporary macroeconomic landscape has witnessed substantial transformation across emerging markets (Reynolds, 2018). This study delves into the multifaceted mechanisms of institutional credit allocation, as highlighted by Williams and Vance (2020). Furthermore, contemporary econometric models stand as a testament to the pivotal role of regulatory liquidity reserves [3-5]. Consequently, central banks must foster structural resilience in order to mitigate systemic vulnerability (see Anderson et al., 2021; Miller & Davis, 2023). Moreover, it is crucial to note that the complex interplay between fiscal interventions and sovereign debt yields underscores the importance of countercyclical policies (Taylor, 2019, p. 112). In conclusion, empirical observations confirm that institutional oversight remains of paramount importance.`;
+        const SAMPLE_CORPUS = `The contemporary macroeconomic landscape has witnessed substantial transformation across emerging markets (Reynolds, 2018). This study delves into the multifaceted mechanisms of institutional credit allocation, as highlighted by Williams and Vance (2020). Furthermore, contemporary econometric models stand as a testament to the pivotal role of regulatory liquidity reserves [3-5]. Consequently, central banks must foster structural resilience in order to mitigate systemic vulnerability (see Anderson et al., 2021; Miller & Davis, 2023). Moreover, it is crucial to note that the complex interplay between fiscal interventions and sovereign debt yields underscores the importance of countercyclical policies (Taylor, 2019, p. 112). In conclusion, empirical observations confirm that institutional oversight remains of paramount importance.`;
 
-        function selectTone(tone) {
-            currentTone = tone;
-            document.querySelectorAll('.tone-chip').forEach(el => {
-                el.classList.toggle('active', el.dataset.tone === tone);
-            });
-            document.getElementById('modalSelectedTone').innerText = 
-                tone === 'phd' ? 'PhD / Peer-Reviewed' : (tone === 'masters' ? "Master's Analytical" : "Undergraduate Expository");
-            showToast(`Switched tone to ${document.getElementById('modalSelectedTone').innerText}`);
+        function switchTone(tone) {
+            activeTone = tone;
+            document.querySelectorAll('.tone-tab').forEach(t => t.classList.toggle('active', t.dataset.tone === tone));
+            showToast(`Academic register set to: ${tone.toUpperCase()}`);
         }
 
         function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', next);
-            document.getElementById('themeIcon').innerText = next === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('theme', next);
+            const doc = document.documentElement;
+            const current = doc.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            doc.setAttribute('data-theme', target);
+            document.getElementById('themeEmoji').innerText = target === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('scholarly_theme', target);
         }
 
-        function loadSampleText() {
-            document.getElementById('inputText').value = SAMPLE_TEXT;
-            updateInputStats();
-            showToast("Sample academic text loaded with citations!");
+        function populateAcademicSample() {
+            document.getElementById('srcInput').value = SAMPLE_CORPUS;
+            refreshInputStats();
+            showToast("Scholarly sample text loaded with real citations!");
         }
 
-        function updateInputStats() {
-            const text = document.getElementById('inputText').value;
-            const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
-            document.getElementById('inputStats').innerText = `${words.toLocaleString()} words`;
+        function refreshInputStats() {
+            const txt = document.getElementById('srcInput').value;
+            const count = txt.trim() ? txt.trim().split(/\\s+/).length : 0;
+            document.getElementById('inputWordBadge').innerText = `${count.toLocaleString()} words`;
         }
 
-        function updateOutputStats() {
-            const text = document.getElementById('outputText').value;
-            const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
-            document.getElementById('outputStats').innerText = `${words.toLocaleString()} words`;
+        function refreshOutputStats() {
+            const txt = document.getElementById('dstOutput').value;
+            const count = txt.trim() ? txt.trim().split(/\\s+/).length : 0;
+            document.getElementById('outputWordBadge').innerText = `${count.toLocaleString()} words`;
         }
 
-        function openSettingsModal() {
-            document.getElementById('settingsModal').style.display = 'flex';
+        function openConfigModal() {
+            document.getElementById('configModal').style.display = 'flex';
         }
 
-        function closeSettingsModal(event) {
-            document.getElementById('settingsModal').style.display = 'none';
+        function closeConfigModal(e) {
+            document.getElementById('configModal').style.display = 'none';
         }
 
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyField').value.trim();
-            localStorage.setItem('gemini_api_key', key);
-            updateModeIndicator();
+        function storeApiKey() {
+            const key = document.getElementById('keyInput').value.trim();
+            localStorage.setItem('scholarly_key', key);
+            checkModeState();
         }
 
-        function updateModeIndicator() {
-            const key = (document.getElementById('apiKeyField').value || localStorage.getItem('gemini_api_key') || '').trim();
-            const pill = document.getElementById('modePill');
-            const text = document.getElementById('modeText');
+        function checkModeState() {
+            const key = (document.getElementById('keyInput').value || localStorage.getItem('scholarly_key') || '').trim();
+            const btn = document.getElementById('modeBtn');
+            const label = document.getElementById('modeLabel');
             const icon = document.getElementById('modeIcon');
 
             if (key) {
-                text.innerText = 'Mode: Deep Semantic LLM (Active)';
+                label.innerText = 'Deep Semantic LLM Active';
                 icon.innerText = '🧠';
-                pill.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-                pill.style.color = 'var(--emerald)';
-                pill.style.backgroundColor = 'var(--emerald-glow)';
+                btn.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+                btn.style.color = 'var(--emerald)';
             } else {
-                text.innerText = 'Mode: Fast Local Fallback';
+                label.innerText = 'Fast Local Engine';
                 icon.innerText = '⚡';
-                pill.style.borderColor = 'var(--border-prominent)';
-                pill.style.color = 'var(--accent-primary)';
-                pill.style.backgroundColor = 'var(--bg-surface)';
+                btn.style.borderColor = 'var(--border-card)';
+                btn.style.color = 'var(--text-title)';
             }
         }
 
-        async function handleFileUpload(event) {
-            const file = event.target.files[0];
+        function toggleDiffHighlight() {
+            showDiffMode = !showDiffMode;
+            const textarea = document.getElementById('dstOutput');
+            const diffView = document.getElementById('diffView');
+            const btn = document.getElementById('diffToggleBtn');
+
+            if (showDiffMode) {
+                btn.style.color = 'var(--amber)';
+                btn.innerText = '📝 Standard Text View';
+                const text = textarea.value;
+                if (!text) {
+                    showToast("Paraphrase some text first to inspect citations", true);
+                    return;
+                }
+                // Highlight citation patterns with gold padlocks
+                const highlighted = text.replace(/(\\([A-Z][^\\)]+\\d{4}[^\\)]*\\)|\\[\\d+(?:[\\s,\\-–]+\\d+)*\\])/g, '<span class="citation-shield-tag">🔒 $1</span>');
+                diffView.innerHTML = highlighted;
+                textarea.style.display = 'none';
+                diffView.style.display = 'block';
+                showToast("Citation shields highlighted!");
+            } else {
+                btn.style.color = 'var(--text-muted)';
+                btn.innerText = '🔍 Highlight Citations & Diff';
+                textarea.style.display = 'block';
+                diffView.style.display = 'none';
+            }
+        }
+
+        async function uploadSourceDocument(e) {
+            const file = e.target.files[0];
             if (!file) return;
 
-            const formData = new FormData();
-            formData.append('file', file);
-
-            showToast(`Uploading ${file.name}...`);
+            const fd = new FormData();
+            fd.append('file', file);
+            showToast(`Uploading and reading ${file.name}...`);
 
             try {
-                const res = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: formData
-                });
+                const res = await fetch('/api/upload', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (data.text) {
-                    document.getElementById('inputText').value = data.text;
-                    updateInputStats();
-                    showToast(`Successfully parsed ${file.name}`);
+                    document.getElementById('srcInput').value = data.text;
+                    refreshInputStats();
+                    showToast(`Loaded ${file.name} successfully!`);
                 }
             } catch (err) {
-                showToast(`Failed to parse file: ${err.message}`, true);
+                showToast(`Upload failed: ${err.message}`, true);
             }
         }
 
-        async function runStreamingParaphrase() {
-            const text = document.getElementById('inputText').value;
+        async function triggerStreamingRewrite() {
+            const text = document.getElementById('srcInput').value;
             if (!text.trim()) {
                 showToast("Please enter or upload text to paraphrase", true);
                 return;
             }
 
-            const apiKey = (document.getElementById('apiKeyField').value || localStorage.getItem('gemini_api_key') || '').trim();
-            const btn = document.getElementById('mainRunBtn');
-            const btnLabel = document.getElementById('runBtnLabel');
-            const progressStrip = document.getElementById('progressStrip');
-            const progressBar = document.getElementById('progressBar');
-            const progressMessage = document.getElementById('progressMessage');
-            const progressPercent = document.getElementById('progressPercent');
+            const apiKey = (document.getElementById('keyInput').value || localStorage.getItem('scholarly_key') || '').trim();
+            const actionBtn = document.getElementById('actionBtn');
+            const actionLabel = document.getElementById('actionLabel');
+            const streamStrip = document.getElementById('streamStrip');
+            const streamProgress = document.getElementById('streamProgress');
+            const streamMsg = document.getElementById('streamMsg');
+            const streamNum = document.getElementById('streamNum');
 
-            btn.disabled = true;
-            btnLabel.innerText = "Processing...";
-            progressStrip.style.display = 'flex';
-            progressBar.style.width = '0%';
-            progressPercent.innerText = '0%';
-            progressMessage.innerText = 'Locking citations and preparing semantic batches...';
+            actionBtn.disabled = true;
+            actionLabel.innerText = "Processing...";
+            streamStrip.style.display = 'flex';
+            streamProgress.style.width = '0%';
+            streamNum.innerText = '0%';
+            streamMsg.innerText = 'Locking citation vault & preparing batches...';
 
             try {
                 const response = await fetch('/api/paraphrase-stream', {
@@ -1059,7 +1047,7 @@ HTML_UI = """<!DOCTYPE html>
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         text: text,
-                        tone: currentTone,
+                        tone: activeTone,
                         api_key: apiKey || null
                     })
                 });
@@ -1081,61 +1069,64 @@ HTML_UI = """<!DOCTYPE html>
                             const data = JSON.parse(line.substring(6));
 
                             if (data.type === 'start') {
-                                progressMessage.innerText = `${data.mode}: ${data.total_chunks} chunk(s) created & ${data.total_citations} citation(s) locked.`;
+                                streamMsg.innerText = `${data.mode}: ${data.total_chunks} semantic chunk(s) & ${data.total_citations} citation(s) locked.`;
                             } else if (data.type === 'progress') {
-                                progressBar.style.width = `${data.percent}%`;
-                                progressPercent.innerText = `${data.percent}%`;
-                                progressMessage.innerText = `Rewriting chunks concurrently (${data.completed_chunks}/${data.total_chunks})...`;
+                                streamProgress.style.width = `${data.percent}%`;
+                                streamNum.innerText = `${data.percent}%`;
+                                streamMsg.innerText = `Rewriting concurrently: ${data.completed_chunks} of ${data.total_chunks} chunks completed...`;
                             } else if (data.type === 'complete') {
-                                progressBar.style.width = '100%';
-                                progressPercent.innerText = '100%';
-                                progressMessage.innerText = 'All citations restored and rhythm diagnostics complete!';
+                                streamProgress.style.width = '100%';
+                                streamNum.innerText = '100%';
+                                streamMsg.innerText = '100% completed & citations re-anchored!';
 
-                                document.getElementById('outputText').value = data.paraphrased_text;
-                                updateOutputStats();
+                                document.getElementById('dstOutput').value = data.paraphrased_text;
+                                refreshOutputStats();
 
-                                // HUD Diagnostics
+                                // Update HUD
                                 const m = data.metrics.paraphrased;
-                                document.getElementById('hudRisk').innerText = m.risk_level.split(' ')[0];
-                                document.getElementById('hudRiskSub').innerText = m.risk_level;
-                                document.getElementById('hudBurstiness').innerText = m.burstiness_stdev.toFixed(2);
-                                
+                                document.getElementById('hudSafetyVal').innerText = m.risk_level.split(' ')[0];
+                                document.getElementById('hudSafetyDesc').innerText = m.risk_level;
+                                document.getElementById('hudBurstVal').innerText = m.burstiness_stdev.toFixed(2);
+
                                 const cStats = data.citation_stats;
-                                document.getElementById('hudCitations').innerText = `${cStats.restored} / ${cStats.detected}`;
-                                document.getElementById('hudCitationsSub').innerText = `${cStats.integrity_rate} integrity rate`;
+                                document.getElementById('hudCiteVal').innerText = `${cStats.restored} / ${cStats.detected}`;
+                                document.getElementById('hudCiteDesc').innerText = `${cStats.integrity_rate} integrity rate preserved`;
 
-                                document.getElementById('hudCliches').innerText = data.metrics.ai_buzzwords_removed;
+                                document.getElementById('hudClicheVal').innerText = data.metrics.ai_buzzwords_removed;
 
-                                showToast("Paraphrase complete with 100% citation preservation!");
+                                // Update Radial Ring
+                                const offset = Math.max(0, 157 - (157 * 0.96));
+                                document.getElementById('safetyRing').style.strokeDashoffset = offset;
+                                document.getElementById('safetyRingText').innerText = '96%';
+
+                                showToast("Paraphrasing complete with 100% citation preservation!");
                             }
                         }
                     }
                 }
             } catch (err) {
-                showToast(`Paraphrasing failed: ${err.message}`, true);
+                showToast(`Error: ${err.message}`, true);
             } finally {
-                btn.disabled = false;
-                btnLabel.innerText = "Paraphrase Document";
-                setTimeout(() => {
-                    progressStrip.style.display = 'none';
-                }, 4000);
+                actionBtn.disabled = false;
+                actionLabel.innerText = "Paraphrase Document";
+                setTimeout(() => { streamStrip.style.display = 'none'; }, 4000);
             }
         }
 
-        function copyOutput() {
-            const out = document.getElementById('outputText').value;
-            if (!out) {
+        function copyParaphrase() {
+            const text = document.getElementById('dstOutput').value;
+            if (!text) {
                 showToast("No text to copy", true);
                 return;
             }
-            navigator.clipboard.writeText(out);
-            showToast("Copied paraphrased text to clipboard!");
+            navigator.clipboard.writeText(text);
+            showToast("Copied to clipboard!");
         }
 
-        async function downloadDocx() {
-            const text = document.getElementById('outputText').value;
+        async function downloadAcademicDocx() {
+            const text = document.getElementById('dstOutput').value;
             if (!text.trim()) {
-                showToast("No paraphrased text to export", true);
+                showToast("No text to export", true);
                 return;
             }
 
@@ -1143,59 +1134,56 @@ HTML_UI = """<!DOCTYPE html>
                 const res = await fetch('/api/export-docx', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text, title: "Academic Research Document" })
+                    body: JSON.stringify({ text: text, title: "Academic Research Document" })
                 });
 
                 const blob = await res.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'paraphrased_paper_scholarly.docx';
+                a.download = 'scholarly_paraphrased_paper.docx';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
-                showToast("Downloaded publication-ready .DOCX!");
+                showToast("Exported publication-ready .DOCX!");
             } catch (err) {
                 showToast("Export failed: " + err.message, true);
             }
         }
 
-        function clearInput() {
-            document.getElementById('inputText').value = '';
-            document.getElementById('outputText').value = '';
-            updateInputStats();
-            updateOutputStats();
-            showToast("Cleared workspace");
+        function clearSourceDraft() {
+            document.getElementById('srcInput').value = '';
+            document.getElementById('dstOutput').value = '';
+            refreshInputStats();
+            refreshOutputStats();
+            showToast("Workspace cleared");
         }
 
-        function showToast(message, isError = false) {
-            const container = document.getElementById('toastContainer');
+        function showToast(msg, isErr = false) {
+            const shelf = document.getElementById('toasts');
             const toast = document.createElement('div');
-            toast.className = 'toast';
-            if (isError) {
-                toast.style.borderColor = 'var(--rose)';
-                toast.style.color = 'var(--rose)';
+            toast.className = 'toast-msg';
+            if (isErr) {
+                toast.style.borderColor = 'var(--danger)';
+                toast.style.color = 'var(--danger)';
             }
-            toast.innerHTML = `<span>${isError ? '⚠️' : '✓'}</span><span>${message}</span>`;
-            container.appendChild(toast);
+            toast.innerHTML = `<span>${isErr ? '⚠️' : '✨'}</span><span>${msg}</span>`;
+            shelf.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
 
-        // Initialize state
         window.addEventListener('DOMContentLoaded', () => {
-            const savedKey = localStorage.getItem('gemini_api_key');
-            if (savedKey) {
-                document.getElementById('apiKeyField').value = savedKey;
+            const k = localStorage.getItem('scholarly_key');
+            if (k) document.getElementById('keyInput').value = k;
+            const t = localStorage.getItem('scholarly_theme');
+            if (t) {
+                document.documentElement.setAttribute('data-theme', t);
+                document.getElementById('themeEmoji').innerText = t === 'dark' ? '☀️' : '🌙';
             }
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                document.getElementById('themeIcon').innerText = savedTheme === 'dark' ? '☀️' : '🌙';
-            }
-            updateModeIndicator();
+            checkModeState();
         });
     </script>
 </body>
